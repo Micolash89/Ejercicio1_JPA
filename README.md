@@ -1,9 +1,9 @@
 # Ejercicio1_JPA
 
 ***Sistema de Guardado de una Librería***
-El objetivo de este ejercicio es el desarrollo de un sistema de guardado de libros en JAVA
-utilizando una base de datos MySQL y JPA como framework de persistencia.
-Creación de la Base de Datos MySQL:
+El objetivo de este ejercicio es el desarrollo de un sistema de guardado de libros en JAVA<br>
+utilizando una base de datos MySQL y JPA como framework de persistencia.<br>
+Creación de la Base de Datos MySQL:<br>
 Lo primero que se debe hacer es crear la base de datos sobre el que operará el sistema de
 reservas de libros. Para ello, se debe abrir el IDE de base de datos que se está utilizando
 (Workbench) y ejecutar la siguiente sentencia:
