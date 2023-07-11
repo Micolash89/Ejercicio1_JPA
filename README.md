@@ -43,7 +43,7 @@ Entidad Autor<br>
 La entidad autor modela los autores de libros.<br>
 Entidad Editorial<br>
 La entidad editorial modela las editoriales que publican libros.<br>
-1. Unidad de Persistencia<br>
+2. Unidad de Persistencia<br>
 Para configurar la unidad de persistencia del proyecto, se recomienda leer el Instructivo
 Unidad de Persistencia recuerde hacer click con el botón derecho sobre el proyecto y
 seleccionar nuevo. A continuación, se debe seleccionar la opción de Persistence Unit como se
@@ -56,7 +56,7 @@ las tablas faltantes, si debe eliminar todas las tablas y volver a crearlas o no
 Recomendamos en este proyecto utilizar la opción: “Create”
 Librería de Persistencia<br>
 Se debe seleccionar para este proyecto la librería “EclipseLink”.<br>
-1. Servicios<br>
+3. Servicios<br>
 AutorServicio<br>
 Esta clase tiene la responsabilidad de llevar adelante las funcionalidades necesarias para
 administrar autores (consulta, creación, modificación y eliminación).<br>
@@ -66,24 +66,24 @@ administrar editoriales (consulta, creación, modificación y eliminación)<br>
 LibroServicio<br>
 Esta clase tiene la responsabilidad de llevar adelante las funcionalidades necesarias para
 administrar libros (consulta, creación, modificación y eliminación).<br>
-1. Main<br>
+4. Main<br>
 Esta clase tiene la responsabilidad de llevar adelante las funcionalidades necesarias para
 interactuar con el usuario. En esta clase se muestra el menú de opciones con las operaciones
 disponibles que podrá realizar el usuario.<br>
-1. Tareas a realizar<br>
-Al alumno le toca desarrollar, las siguientes funcionalidades:<br>
-  2. Crear base de datos Librería<br>
+5. Tareas a realizar<br>
+Al alumno le toca desarrollar, las siguientes funcionalidades:
+  1. Crear base de datos Librería
   2. Crear unidad de persistencia<br>
-  2. Crear entidades previamente mencionadas (excepto Préstamo)<br>
-  2. Generar las tablas con JPA<br>
-  2. Crear servicios previamente mencionados.<br>
-  2. Crear los métodos para persistir entidades en la base de datos librería<br>
-  2. Crear los métodos para dar de alta/bajo o editar dichas entidades.<br>
-  2. Búsqueda de un Autor por nombre.<br>
-  2. Búsqueda de un libro por ISBN.<br>
-  2. Búsqueda de un libro por Título.<br>
-  2. Búsqueda de un libro/s por nombre de Autor.<br>
-  2. Búsqueda de un libro/s por nombre de Editorial.<br>
-  2. Agregar las siguientes validaciones a todas las funcionalidades de la aplicación:<br>
+  3. Crear entidades previamente mencionadas (excepto Préstamo)<br>
+  4. Generar las tablas con JPA<br>
+  5. Crear servicios previamente mencionados.<br>
+  6. Crear los métodos para persistir entidades en la base de datos librería<br>
+  7. Crear los métodos para dar de alta/bajo o editar dichas entidades.<br>
+  8. Búsqueda de un Autor por nombre.<br>
+  9. Búsqueda de un libro por ISBN.<br>
+  10. Búsqueda de un libro por Título.<br>
+  11. Búsqueda de un libro/s por nombre de Autor.<br>
+  12. Búsqueda de un libro/s por nombre de Editorial.<br>
+  13. Agregar las siguientes validaciones a todas las funcionalidades de la aplicación:<br>
 - Validar campos obligatorios.<br>
 - No ingresar datos duplicados.<br>
