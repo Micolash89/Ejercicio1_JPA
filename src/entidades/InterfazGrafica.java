@@ -1,16 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package entidades;
 
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author JAVIER ESPINDOLA
- */
+
 public class InterfazGrafica {
     
       public static String mensajeMenu(String mensaje, String titulo) {
@@ -29,7 +23,16 @@ public class InterfazGrafica {
         return (String) JOptionPane.showInputDialog(null, cadena, TITULO, JOptionPane.QUESTION_MESSAGE, icono, null, null);
 
     }
+    
+    public static String mensajeIngresoEditar(String cadena, String TITULO,String variable) {
 
+        ImageIcon icono = new ImageIcon("src/images/question.png");
+        icono = new ImageIcon(icono.getImage().getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH));
+        //return (String) JOptionPane.showInputDialog(null, cadena, TITULO, JOptionPane.QUESTION_MESSAGE, icono, null, null);
+        return (String) JOptionPane.showInputDialog(null, cadena, TITULO, JOptionPane.QUESTION_MESSAGE, icono, null, variable);
+        
+    }
+ 
     // este metodo sirve para mostrar mensajes en pantalla
     public static void mensajeMostrar(String cadena, String titulo) {
 

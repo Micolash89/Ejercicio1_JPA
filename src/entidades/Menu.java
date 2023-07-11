@@ -155,7 +155,7 @@ public class Menu {
                     as.eliminarXid();
                     break;
                 case 6:
-                    //editar
+                    as.editarAutor();
                     break;
                 case -2:
                 case 7:

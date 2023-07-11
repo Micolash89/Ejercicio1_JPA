@@ -1,8 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- * hola como estas
- */
+
 package service;
 
 import entidades.Autor;
@@ -10,10 +6,7 @@ import entidades.InterfazGrafica;
 import java.util.List;
 import persistencia.AutorDAO;
 
-/**
- *  service autor
- * @author JAVIER ESPINDOLA
- */
+
 public class AutorService {
 
     private AutorDAO ad = new AutorDAO();
@@ -41,6 +34,10 @@ public class AutorService {
     }
 
     public void buscarAutor() {
+        
+        String input;
+        Integer id=-1;
+        
         try {
 
             if (ad.noHayAutor()) {
@@ -52,7 +49,30 @@ public class AutorService {
             InterfazGrafica.mensajeCancelar("Error al buscar la lista de autores X id " + e.getMessage(), "Error buscar Autor - if");
         }
 
-        Integer id = Integer.valueOf(InterfazGrafica.mensajeIngreso(listarAutores() + "\ningrese ingrese ID del Autor", "AUTOR")) ;
+        //Integer id = Integer.valueOf(InterfazGrafica.mensajeIngreso(listarAutores() + "\ningrese ingrese ID del Autor", "AUTOR")) ;
+        
+        input=InterfazGrafica.mensajeIngreso(listarAutores() + "\ningrese ingrese ID del Autor", "AUTOR") ;
+        
+        if(input==null)
+            return;
+        
+        
+        try {
+            id = Integer.valueOf(input);
+            
+        } catch ( ArithmeticException  e) {
+            InterfazGrafica.mensajeCancelar("ingrese numeros", "ERROR BUSCAR - ARITMETIC");
+            buscarAutor();
+            return;
+        }catch(Exception j){
+            InterfazGrafica.mensajeCancelar("ingrese numeros", "ERROR BUSCAR - EXCEPTION");
+            buscarAutor();
+            return;
+        }
+        
+        
+        
+        
         Autor a = null;
         try {
 
@@ -141,7 +161,7 @@ public class AutorService {
 
     /**
      * pasar la lista en una cadena para mostrar
-     *
+    
      * @return
      */
     private String listarAutores() {
@@ -171,9 +191,10 @@ public class AutorService {
             e += " ";
         }
 
+        
         return e;
     }
-
+    
     private String listarAutores(List<Autor> a) {
 
         String c = "";
@@ -185,5 +206,47 @@ public class AutorService {
 
     }
 
+    public void editarAutor() {
+        
+         try {
+
+            if (ad.noHayAutor()) {
+                InterfazGrafica.mensajeCancelar("no hay Autores reguistrados en el sistema", "EDITAR AUTOR");
+                return;
+            }
+
+        } catch (Exception e) {
+            InterfazGrafica.mensajeCancelar("Error al buscar la lista de autores X id " + e.getMessage(), "Error editar Autor - if");
+        }
+
+        Integer id = Integer.valueOf(InterfazGrafica.mensajeIngreso(listarAutores() + "\ningrese ingrese ID del Autor", "AUTOR")) ;
+        Autor a = null;
+        try {
+
+            a = ad.buscarAutorXId(id);
+
+        } catch (Exception e) {
+            InterfazGrafica.mensajeAdvertencia("error al buscar el autor con el id: " + id, "error ID");
+            return;
+        }
+        
+        if(a!=null){    
+            
+            a.setNombre( InterfazGrafica.mensajeIngresoEditar("Ingrese nuevo nombre","EDITAR AUTOR",a.getNombre()));
+            
+            if(!a.getAlta())
+                a.setAlta(true);
+            
+            try {
+                ad.editarAutor(a);
+            } catch (Exception e) {
+                InterfazGrafica.mensajeCancelar("error al tratar de editar un autor" + e.getMessage(), "ERROR AL EDITAR");
+            }
+            
+        }
+        else
+            InterfazGrafica.mensajeMostrar("no se encontro el autor con el id: " + id, "ERROR AL BUSCAR AUTOR");
+
+    }
 
 }
