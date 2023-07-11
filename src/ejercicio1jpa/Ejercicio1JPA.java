@@ -1,8 +1,6 @@
 package ejercicio1jpa;
 
-import entidades.InterfazGrafica;
 import entidades.Menu;
-import javax.swing.JOptionPane;
 
 public class Ejercicio1JPA {
 
@@ -11,8 +9,7 @@ public class Ejercicio1JPA {
         Menu m = new Menu();
         
         m.menu();
-        
-        
+    
     }
 
 }

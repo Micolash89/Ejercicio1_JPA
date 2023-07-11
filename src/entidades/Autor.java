@@ -50,8 +50,10 @@ public class Autor implements Serializable {
         this.alta = alta;
     }
     
+    public boolean isAlta(){
+        return alta;
+    }
     
-
     public Integer getId() {
         return id;
     }

@@ -3,6 +3,7 @@ package entidades;
 
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 
 
 public class InterfazGrafica {
@@ -82,8 +83,13 @@ public class InterfazGrafica {
         
         return (String) JOptionPane.showInputDialog(null, mensaje, titulo, JOptionPane.QUESTION_MESSAGE, icono, null, null);
 
-
     }
-    
+
+    public static void mensajeMostrarTabla(JScrollPane ListadoEnTabla, String titulo) {
+        
+        //JOptionPane.showMessageDialog(null, ListadoEnTabla(), "Listado de profesores de Codo a Codo", JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(null, ListadoEnTabla, titulo, JOptionPane.PLAIN_MESSAGE);
+        
+    }
     
 }

@@ -3,7 +3,11 @@ package service;
 
 import entidades.Autor;
 import entidades.InterfazGrafica;
+import java.awt.Dimension;
 import java.util.List;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import persistencia.AutorDAO;
 
 
@@ -31,7 +35,25 @@ public class AutorService {
 
     public void mostrarAutores() {
 
-        InterfazGrafica.mensajeMostrar(listarAutores(), "LISTA DE AUTORES");
+      //  InterfazGrafica.mensajeMostrar(listarAutores(), "LISTA DE AUTORES");
+      
+        try {
+            if(ad.noHayAutor()){
+                InterfazGrafica.mensajeCancelar("No hay registros en el sistema", "ERROR AL MOSTRAR");
+            }
+                
+        } catch (Exception e) {
+            InterfazGrafica.mensajeCancelar("Error en la conexion base de la datos "+e.getMessage(), "ERROR - EXCEPTION");
+        }
+      
+        try {
+        InterfazGrafica.mensajeMostrarTabla(ListadoEnTabla(ad.listarTodosAutores()), "LISTA DE AUTORES");
+            
+        } catch (Exception e) {
+            InterfazGrafica.mensajeCancelar("Error en la conexion de la base de datos","LISTA DE AUTORES - TABLA");
+        }
+      
+      
 
     }
 
@@ -180,17 +202,17 @@ public class AutorService {
         String c = "";
        
         for (Autor autor : a) {
-            c += autor.getId()+ " " + autor.getNombre() + espacios(autor.getNombre().length()) + "\n";
+            c += autor.getId()+ " " + autor.getNombre() + espacios(autor.getNombre().length(),50)+ ((autor.isAlta())?"alta":"baja") + "\n";
         }
         return c;
 
     }
 
-    private String espacios(int n) {
+    private String espacios(int n1,int n2) {
 
         String e = "";
 
-        for (int i = 0; i < 20 - n; i++) {
+        for (int i = 0; i < n2 - n1; i++) {
             e += " ";
         }
 
@@ -203,7 +225,7 @@ public class AutorService {
         String c = "";
         int i = 0;
         for (Autor autor : a) {
-            c += autor.getId()+ " " + autor.getNombre() + espacios(autor.getNombre().length()) + "\n";
+            c += autor.getId()+ " " + autor.getNombre() + espacios(autor.getNombre().length(),50)+ ((autor.isAlta())?"alta":"baja") + "\n";
         }
         return c;
 
@@ -252,4 +274,38 @@ public class AutorService {
 
     }
 
+    
+     private JScrollPane ListadoEnTabla(List<Autor> a) {
+        
+        DefaultTableModel miTabla = new DefaultTableModel();
+        miTabla.addColumn("Id");
+        miTabla.addColumn("Nombre");
+        miTabla.addColumn("Alta");
+        
+        for(int i=0; i <a.size(); i++) {
+            String fila[] = {"", "", ""};
+           
+            fila[0] = a.get(i).getId().toString();
+            fila[1] = a.get(i).getNombre();
+            fila[2] = (a.get(i).getAlta())?"Alta":"Baja";
+            
+            miTabla.addRow(fila);
+        }
+        JTable table = new JTable(miTabla);//creo un objeto tabla
+
+        table.setDefaultEditor(Object.class, null);
+        table.getTableHeader().setReorderingAllowed(false);
+        table.getColumnModel().getColumn(0).setPreferredWidth(50);
+        table.getColumnModel().getColumn(1).setPreferredWidth(100);
+        table.getColumnModel().getColumn(2).setPreferredWidth(100);
+        table.setPreferredScrollableViewportSize(new Dimension(250,100));
+        table.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.createVerticalScrollBar();
+        scrollPane.createHorizontalScrollBar();
+
+        return scrollPane;
+    }
+    
+    
 }
