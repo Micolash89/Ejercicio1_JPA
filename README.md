@@ -86,5 +86,5 @@ Al alumno le toca desarrollar, las siguientes funcionalidades:
         11. Búsqueda de un libro/s por nombre de Autor.
         12. Búsqueda de un libro/s por nombre de Editorial.
         13. Agregar las siguientes validaciones a todas las funcionalidades de la aplicación:
-          - Validar campos obligatorios.
-          - No ingresar datos duplicados.
+- Validar campos obligatorios.
+- No ingresar datos duplicados.
