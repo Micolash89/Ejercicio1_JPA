@@ -40,7 +40,7 @@ public class Menu {
     public int opcionMenu() {
 
         String opc = InterfazGrafica.mensajeMenu(
-                "*****MENU PRINCIPAL******\n" 
+                "*****MENU PRINCIPAL******\n"
                 + "\n1 - Libros"
                 + "\n2 - Autor"
                 + "\n3 - Editorial"
@@ -53,7 +53,7 @@ public class Menu {
 
         try {
             return Integer.valueOf(opc);
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             return -1;
         }
 
@@ -68,34 +68,34 @@ public class Menu {
 
             switch (opcion) {
                 case 1:
-
+                    ls.ingresarLibro();
                     break;
                 case 2:
-
+                    ls.mostrarLibros();
                     break;
                 case 3:
-
+                    ls.buscarLibro();
                     break;
                 case 4:
-
+                    ls.buscarLibroXnombre();
                     break;
                 case 5:
-
+                    //buscarxautor
                     break;
                 case 6:
-
+                //buscar x editorial
                     break;
                 case 7:
-
+                    ls.editarLibro();
                     break;
                 case 8:
-
+                    ls.eliminarXid();
                     break;
                 case 9:
-
+                //eliminarxtitulo
                     break;
                 case 10:
-
+                    //salir
                     break;
                 default:
                     InterfazGrafica.mensajeAdvertencia("opcion incorrecta", "OPCION INCORRECTA");
@@ -108,8 +108,8 @@ public class Menu {
     public int opcionLibro() {
 
         String opc = InterfazGrafica.mensajeMenu("******LIBROS******\n"
-                + "\n1 - Mostrar todos los libros"
-                + "\n2 - Ingresar nuevo Libro"
+                + "\n1 - Ingresar nuevo Libro"
+                + "\n2 - Mostrar todos los libros"
                 + "\n3 - Buscar libro por ISBN"
                 + "\n4 - Buscar libro por titulo"
                 + "\n5 - Buscar libros por autor"
@@ -126,7 +126,7 @@ public class Menu {
 
         try {
             return Integer.valueOf(opc);
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             return -1;
         }
 
@@ -187,11 +187,12 @@ public class Menu {
 
         try {
             return Integer.valueOf(opc);
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             return -1;
         }
 
     }
+
     public void menuEditorial() {
 
         int opcion;
@@ -247,7 +248,7 @@ public class Menu {
 
         try {
             return Integer.valueOf(opc);
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             return -1;
         }
 

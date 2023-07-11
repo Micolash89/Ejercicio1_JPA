@@ -11,7 +11,7 @@ public class AutorService {
 
     private AutorDAO ad = new AutorDAO();
 
-    public void ingresarAutor() {
+    public Autor ingresarAutor() {
 
         Autor a = new Autor();
 
@@ -25,6 +25,8 @@ public class AutorService {
             InterfazGrafica.mensajeCancelar("error al ingresar un autor " + e.getMessage(), "ERROR - AUTOR");
         }
 
+        return a;
+        
     }
 
     public void mostrarAutores() {
@@ -60,8 +62,8 @@ public class AutorService {
         try {
             id = Integer.valueOf(input);
             
-        } catch ( ArithmeticException  e) {
-            InterfazGrafica.mensajeCancelar("ingrese numeros", "ERROR BUSCAR - ARITMETIC");
+        } catch ( NumberFormatException  e) {
+            InterfazGrafica.mensajeCancelar("ingrese numeros", "ERROR BUSCAR - FORMAT");
             buscarAutor();
             return;
         }catch(Exception j){
@@ -148,6 +150,7 @@ public class AutorService {
             a.setAlta(false);
         else
             InterfazGrafica.mensajeMostrar("no se encontro el autor con el id: "+id, "ERROR ELIMINAR POR ID");
+        
         try {
 
             ad.editarAutor(a);

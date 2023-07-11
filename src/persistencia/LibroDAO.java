@@ -4,6 +4,7 @@
  */
 package persistencia;
 
+import entidades.Autor;
 import entidades.Libro;
 import entidades.Libro;
 import java.util.List;
@@ -20,7 +21,7 @@ public class LibroDAO extends DAO<Libro> {
 
     }
 
-    public void eliminarLibro(Integer id) throws Exception {
+    public void eliminarLibro(Long id) throws Exception {
 
         eliminar(buscarLibroXId(id));
 
@@ -32,7 +33,7 @@ public class LibroDAO extends DAO<Libro> {
 
     }
 
-    public Libro buscarLibroXId(Integer id) throws Exception {
+    public Libro buscarLibroXId(Long id) throws Exception {
 
         conectar();
         Libro a = em.find(Libro.class, id);
@@ -56,6 +57,12 @@ public class LibroDAO extends DAO<Libro> {
     public boolean noHayLibros()throws Exception{
     
     return noHayRegistros("select a from Libro a");
+    
+    }
+    
+     public void editarLibro(Libro a)throws Exception{
+        
+        editar(a);
     
     }
 

@@ -17,7 +17,7 @@ public class EditorialService {
     private EditorialDAO ed = new EditorialDAO();
     
     
-    public void ingresarEditorial() {
+    public Editorial ingresarEditorial() {
 
         Editorial a = new Editorial();
 
@@ -31,6 +31,7 @@ public class EditorialService {
             InterfazGrafica.mensajeCancelar("error al ingresar un Editorial " + e.getMessage(), "ERROR - Editorial");
         }
 
+        return a;
     }
 
     public void mostrarEditoriales() {
