@@ -16,6 +16,8 @@
             <file>file:/D:/Egg-Java/JPA/ejercicio1JPA/src/ejercicio1jpa/Ejercicio1JPA.java</file>
             <file>file:/D:/Egg-Java/JPA/ejercicio1JPA/src/entidades/Autor.java</file>
             <file>file:/D:/Egg-Java/JPA/ejercicio1JPA/src/service/EditorialService.java</file>
+            <file>file:/D:/Egg-Java/JPA/ejercicio1JPA/src/entidades/BaseDatos.java</file>
+            <file>file:/D:/Egg-Java/JPA/ejercicio1JPA/src/entidades/ArchivoGestor.java</file>
             <file>file:/D:/Egg-Java/JPA/ejercicio1JPA/src/persistencia/EditorialDAO.java</file>
         </group>
     </open-files>
