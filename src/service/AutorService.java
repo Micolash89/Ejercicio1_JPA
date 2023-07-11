@@ -10,7 +10,7 @@ import java.util.List;
 import persistencia.AutorDAO;
 
 /**
- *
+ *  service autor
  * @author JAVIER ESPINDOLA
  */
 public class AutorService {
