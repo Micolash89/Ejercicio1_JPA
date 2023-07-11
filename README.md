@@ -72,18 +72,18 @@ interactuar con el usuario. En esta clase se muestra el menú de opciones con la
 disponibles que podrá realizar el usuario.<br>
 1. Tareas a realizar<br>
 Al alumno le toca desarrollar, las siguientes funcionalidades:<br>
-1) Crear base de datos Librería<br>
-2) Crear unidad de persistencia<br>
-3) Crear entidades previamente mencionadas (excepto Préstamo)<br>
-4) Generar las tablas con JPA<br>
-5) Crear servicios previamente mencionados.<br>
-6) Crear los métodos para persistir entidades en la base de datos librería<br>
-7) Crear los métodos para dar de alta/bajo o editar dichas entidades.<br>
-8) Búsqueda de un Autor por nombre.<br>
-9) Búsqueda de un libro por ISBN.<br>
-10) Búsqueda de un libro por Título.<br>
-11) Búsqueda de un libro/s por nombre de Autor.<br>
-12) Búsqueda de un libro/s por nombre de Editorial.<br>
-13) Agregar las siguientes validaciones a todas las funcionalidades de la aplicación:<br>
-• Validar campos obligatorios.<br>
-• No ingresar datos duplicados.<br>
+  1. Crear base de datos Librería<br>
+  1. Crear unidad de persistencia<br>
+  1. Crear entidades previamente mencionadas (excepto Préstamo)<br>
+  1. Generar las tablas con JPA<br>
+  1. Crear servicios previamente mencionados.<br>
+  1. Crear los métodos para persistir entidades en la base de datos librería<br>
+  1. Crear los métodos para dar de alta/bajo o editar dichas entidades.<br>
+  1. Búsqueda de un Autor por nombre.<br>
+  1. Búsqueda de un libro por ISBN.<br>
+  1. Búsqueda de un libro por Título.<br>
+  1. Búsqueda de un libro/s por nombre de Autor.<br>
+  1. Búsqueda de un libro/s por nombre de Editorial.<br>
+  1. Agregar las siguientes validaciones a todas las funcionalidades de la aplicación:<br>
+    - Validar campos obligatorios.<br>
+    - No ingresar datos duplicados.<br>
