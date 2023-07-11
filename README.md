@@ -22,7 +22,7 @@ práctica. Por esto, además de eliminar nuestras entidades, vamos a practicar q
 entidades estén dadas de alta o de baja. Por lo que las entidades tendrán un atributo “activo”
 de tipo booleano, que estará en true al momento de crearlas y en false cuando las demos de
 baja, para evitar eliminarlas de la base de datos.<br>
-<img src="src/images/libreriaPackages.png">
+<img src="src/images/libreriaPackages.PNG">
 a) Entidades<br>
 Crearemos el siguiente modelo de entidades:<br>
 Entidad Libro<br>
