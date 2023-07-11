@@ -80,10 +80,10 @@ public class Menu {
                     ls.buscarLibroXnombre();
                     break;
                 case 5:
-                    //buscarxautor
+                    ls.buscarXautor();
                     break;
                 case 6:
-                //buscar x editorial
+                    //buscar x editorial
                     break;
                 case 7:
                     ls.editarLibro();
@@ -92,7 +92,7 @@ public class Menu {
                     ls.eliminarXid();
                     break;
                 case 9:
-                //eliminarxtitulo
+                    //eliminarxtitulo
                     break;
                 case 10:
                     //salir
@@ -107,7 +107,7 @@ public class Menu {
 
     public int opcionLibro() {
 
-        String opc = InterfazGrafica.mensajeMenu("******LIBROS******\n"
+        String opc = InterfazGrafica.mensajeMenu("******MENU LIBROS******\n"
                 + "\n1 - Ingresar nuevo Libro"
                 + "\n2 - Mostrar todos los libros"
                 + "\n3 - Buscar libro por ISBN"
@@ -171,7 +171,7 @@ public class Menu {
 
     public int opcionAutor() {
 
-        String opc = InterfazGrafica.mensajeMenu("******LIBROS******\n"
+        String opc = InterfazGrafica.mensajeMenu("******MENU AUTORES******\n"
                 + "\n1 - Crear Autor"
                 + "\n2 - Mostrar los autores"
                 + "\n3 - Buscar Autor por ID"
@@ -232,7 +232,7 @@ public class Menu {
 
     public int opcionEditorial() {
 
-        String opc = InterfazGrafica.mensajeMenu("******LIBROS******\n"
+        String opc = InterfazGrafica.mensajeMenu("******MENU EDITORIAL******\n"
                 + "\n1 - Crear Edotorial"
                 + "\n2 - Mostrar los Editorales"
                 + "\n3 - Buscar Edotiral por ID"

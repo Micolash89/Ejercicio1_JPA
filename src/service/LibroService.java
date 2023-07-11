@@ -131,7 +131,7 @@ public class LibroService {
 
         //Integer id = Integer.valueOf(InterfazGrafica.mensajeIngreso(listarLibroes() + "\ningrese ingrese ID del Libro", "Libro")) ;
         input = InterfazGrafica.mensajeIngreso(listarLibros() + "\ningrese ingrese ID del Libro", "Libro");
-
+        //input = InterfazGrafica.mensajeMostrarTablaIngreso(ListadoEnTabla, input)
         if (input == null) {
             return;
         }
@@ -167,7 +167,9 @@ public class LibroService {
     }
 
     public void buscarLibroXnombre() {
-
+        
+        String input=null;
+        
         try {
 
             if (ld.noHayLibros()) {
@@ -180,17 +182,17 @@ public class LibroService {
             return;
         }
 
-        String nombre = InterfazGrafica.mensajeIngreso(listarLibros() + "\ningrese ingrese nombre del Libro", "NOMBRE");
-        if (nombre == null) {
+        input = InterfazGrafica.mensajeIngreso(listarLibros() + "\ningrese ingrese nombre del Libro", "NOMBRE");
+        if (input == null) {
             return;
         }
         List<Libro> a = null;
         try {
 
-            a = ld.BuscarLibro("nombre", nombre);
+            a = ld.BuscarLibro("titulo", input);
 
         } catch (Exception e) {
-            InterfazGrafica.mensajeAdvertencia("error al buscar el Libro con el nombre: " + nombre, "error nombre");
+            InterfazGrafica.mensajeAdvertencia("error al buscar el Libro con el titulo: " + input, "error nombre");
             return;
         }
 
@@ -395,4 +397,25 @@ public class LibroService {
         }
 
     }
+
+    public void buscarXautor() {
+
+        String input;
+
+        List<Libro> a = null;
+
+        input = InterfazGrafica.mensajeMenu("ingrese autor a buscar", "BUSCAR X AUTOR", "src/images/autor.png");
+
+        try {
+            a = ld.consultaGenerica("Libro", "autor.nombre", input);
+        } catch (Exception e) {
+            InterfazGrafica.mensajeCancelar("Error al consular los libros x autor "+e.getMessage(), "ERROR - BUSCAR X AUTOR");
+        }
+        InterfazGrafica.mensajeMostrar(listarLibros(a), "LIBROS DEL AUTOR " + input);
+    }
+    
+    
+    
+    
+    
 }

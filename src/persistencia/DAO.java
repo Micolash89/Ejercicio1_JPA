@@ -67,7 +67,15 @@ public class DAO<T> {
         
         conectar();
         return em.createQuery("SELECT e FROM " + entidad + " e WHERE e." + atributo + " LIKE :variable").setParameter("variable", "%" + variable + "%").getResultList();
-
+        //return em.createQuery("SELECT e FROM Libro e WHERE e.autor.nombre LIKE :variable").setParameter("variable", "%" + variable + "%").getResultList();
+        //SELECT e FROM Libro  e where e.autor.nombre LIKE : variable
+    }
+    public List<T> consultaGenericaLiteral(String entidad, String atributo, String variable) {
+        
+        conectar();
+        return em.createQuery("SELECT e FROM " + entidad + " e WHERE e." + atributo + " LIKE : " + variable).getResultList();
+        //return em.createQuery("SELECT e FROM Libro e WHERE e.autor.nombre LIKE :variable").setParameter("variable", "%" + variable + "%").getResultList();
+        //SELECT e FROM Libro  e where e.autor.nombre LIKE : variable
     }
 
     public boolean noHayRegistros(String sql){

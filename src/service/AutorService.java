@@ -10,7 +10,6 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import persistencia.AutorDAO;
 
-
 public class AutorService {
 
     private AutorDAO ad = new AutorDAO();
@@ -52,14 +51,12 @@ public class AutorService {
         } catch (Exception e) {
             InterfazGrafica.mensajeCancelar("Error en la conexion de la base de datos","LISTA DE AUTORES - TABLA");
         }
-      
-      
-
+    
     }
 
     public void buscarAutor() {
         
-        String input;
+        String input=null;
         Integer id=-1;
         
         try {
@@ -73,9 +70,15 @@ public class AutorService {
             InterfazGrafica.mensajeCancelar("Error al buscar la lista de autores X id " + e.getMessage(), "Error buscar Autor - if");
         }
 
-        //Integer id = Integer.valueOf(InterfazGrafica.mensajeIngreso(listarAutores() + "\ningrese ingrese ID del Autor", "AUTOR")) ;
+        //input=InterfazGrafica.mensajeIngreso(listarAutores() + "\ningrese ingrese ID del Autor", "AUTOR") ;
         
-        input=InterfazGrafica.mensajeIngreso(listarAutores() + "\ningrese ingrese ID del Autor", "AUTOR") ;
+        try {
+        input = InterfazGrafica.mensajeMostrarTablaIngreso(ListadoEnTabla(ad.listarTodosAutores()), "BUSCAR AUTOR");
+            
+        } catch (Exception e) {
+            InterfazGrafica.mensajeCancelar("Error al buscar todos los autores", "BUSCAR - AUTOR");
+        }
+        
         
         if(input==null)
             return;
@@ -130,6 +133,12 @@ public class AutorService {
         String nombre = InterfazGrafica.mensajeIngreso(listarAutores() + "\ningrese ingrese nombre del Autor", "NOMBRE");
         if(nombre==null)
             return;
+        if(nombre.trim().equals("")){
+            InterfazGrafica.mensajeCancelar("Ingrese algun caracter", "ERROR - INGRESO");
+            buscarAutor();
+            return;
+        }
+            
         List<Autor> a = null;
         try {
 
@@ -288,7 +297,7 @@ public class AutorService {
             fila[0] = a.get(i).getId().toString();
             fila[1] = a.get(i).getNombre();
             fila[2] = (a.get(i).getAlta())?"Alta":"Baja";
-            
+           
             miTabla.addRow(fila);
         }
         JTable table = new JTable(miTabla);//creo un objeto tabla

@@ -19,9 +19,9 @@ import persistencia.EditorialDAO;
  * @author JAVIER ESPINDOLA
  */
 public class EditorialService {
+
     private EditorialDAO ed = new EditorialDAO();
-    
-    
+
     public Editorial ingresarEditorial() {
 
         Editorial a = new Editorial();
@@ -42,20 +42,20 @@ public class EditorialService {
     public void mostrarEditoriales() {
 
         //InterfazGrafica.mensajeMostrar(listarEditoriales(), "LISTA DE EditorialES");
-         try {
-            if(ed.noHayEditorial()){
+        try {
+            if (ed.noHayEditorial()) {
                 InterfazGrafica.mensajeCancelar("No hay registros en el sistema", "ERROR AL MOSTRAR");
             }
-                
+
         } catch (Exception e) {
-            InterfazGrafica.mensajeCancelar("Error en la conexion base de la datos "+e.getMessage(), "ERROR - EXCEPTION");
+            InterfazGrafica.mensajeCancelar("Error en la conexion base de la datos " + e.getMessage(), "ERROR - EXCEPTION");
         }
-      
+
         try {
-        InterfazGrafica.mensajeMostrarTabla(ListadoEnTabla(ed.listarTodosEditoriales()), "LISTA DE AUTORES");
-            
+            InterfazGrafica.mensajeMostrarTabla(ListadoEnTabla(ed.listarTodosEditoriales()), "LISTA DE AUTORES");
+
         } catch (Exception e) {
-            InterfazGrafica.mensajeCancelar("Error en la conexion de la base de datos","LISTA DE AUTORES - TABLA");
+            InterfazGrafica.mensajeCancelar("Error en la conexion de la base de datos", "LISTA DE AUTORES - TABLA");
         }
 
     }
@@ -72,7 +72,7 @@ public class EditorialService {
             InterfazGrafica.mensajeCancelar("Error al buscar la lista de Editoriales X id " + e.getMessage(), "Error buscar Editorial - if");
         }
 
-        Integer id = Integer.valueOf(InterfazGrafica.mensajeIngreso(listarEditoriales() + "\ningrese ingrese ID del Editorial", "Editorial")) ;
+        Integer id = Integer.valueOf(InterfazGrafica.mensajeIngreso(listarEditoriales() + "\ningrese ingrese ID del Editorial", "Editorial"));
         Editorial a = null;
         try {
 
@@ -82,11 +82,12 @@ public class EditorialService {
             InterfazGrafica.mensajeAdvertencia("error al vuscar el Editorial con el id: " + id, "error ID");
             return;
         }
-        
-        if(a!=null)
+
+        if (a != null) {
             InterfazGrafica.mensajeMostrar(a.toString(), "LISTA DE EditorialES");
-        else
+        } else {
             InterfazGrafica.mensajeMostrar("no se encontro el Editorial con el id: " + id, "ERROR AL BUSCAR Editorial");
+        }
     }
 
     public void buscarEditorialXnombre() {
@@ -104,8 +105,9 @@ public class EditorialService {
         }
 
         String nombre = InterfazGrafica.mensajeIngreso(listarEditoriales() + "\ningrese ingrese nombre del Editorial", "NOMBRE");
-        if(nombre==null)
+        if (nombre == null) {
             return;
+        }
         List<Editorial> a = null;
         try {
 
@@ -119,13 +121,13 @@ public class EditorialService {
         InterfazGrafica.mensajeMostrar(listarEditoriales(a), "LISTA DE EditorialES");
 
     }
-    
-        public void eliminarXid() {
-          
-            Editorial a=null;
-            Integer id;
-            
-             try {
+
+    public void eliminarXid() {
+
+        Editorial a = null;
+        Integer id;
+
+        try {
 
             if (ed.noHayEditorial()) {
                 InterfazGrafica.mensajeCancelar("no hay Editoriales reguistrados en el sistema", "BUSCAR Editorial");
@@ -137,17 +139,18 @@ public class EditorialService {
         }
 
         id = Integer.valueOf(InterfazGrafica.mensajeIngreso(listarEditoriales() + "\ningrese ingrese ID del Editorial a eliminar", "Editorial"));
-            try {
-                
-        a= ed.buscarEditorialXId(id);
-            } catch (Exception e) {
-               InterfazGrafica.mensajeCancelar("Error al buscar la lista de Editoriales X id " + e.getMessage(), "Error buscar Editorial - if");
-               return;
-            }
-        if(a!=null)
+        try {
+
+            a = ed.buscarEditorialXId(id);
+        } catch (Exception e) {
+            InterfazGrafica.mensajeCancelar("Error al buscar la lista de Editoriales X id " + e.getMessage(), "Error buscar Editorial - if");
+            return;
+        }
+        if (a != null) {
             a.setAlta(false);
-        else
-            InterfazGrafica.mensajeMostrar("no se encontro el Editorial con el id: "+id, "ERROR ELIMINAR POR ID");
+        } else {
+            InterfazGrafica.mensajeMostrar("no se encontro el Editorial con el id: " + id, "ERROR ELIMINAR POR ID");
+        }
         try {
 
             ed.editarEditorial(a);
@@ -167,17 +170,17 @@ public class EditorialService {
     private String listarEditoriales() {
         List<Editorial> a = null;
         try {
-           
+
             a = ed.listarTodosEditoriales();
-            
+
         } catch (Exception e) {
-            InterfazGrafica.mensajeAdvertencia("error "+e.getMessage(), "error al mostrar Editoriales");
+            InterfazGrafica.mensajeAdvertencia("error " + e.getMessage(), "error al mostrar Editoriales");
             return "";
         }
         String c = "";
-       
+
         for (Editorial Editorial : a) {
-            c += Editorial.getId()+ " " + Editorial.getNombre() + espacios(Editorial.getNombre().length()) + "\n";
+            c += Editorial.getId() + " " + Editorial.getNombre() + espacios(Editorial.getNombre().length()) + "\n";
         }
         return c;
     }
@@ -198,26 +201,26 @@ public class EditorialService {
         String c = "";
         int i = 0;
         for (Editorial Editorial : a) {
-            c += Editorial.getId()+ " " + Editorial.getNombre() + espacios(Editorial.getNombre().length()) + "\n";
+            c += Editorial.getId() + " " + Editorial.getNombre() + espacios(Editorial.getNombre().length()) + "\n";
         }
         return c;
 
     }
-    
+
     private JScrollPane ListadoEnTabla(List<Editorial> a) {
-        
+
         DefaultTableModel miTabla = new DefaultTableModel();
         miTabla.addColumn("Id");
         miTabla.addColumn("Nombre");
         miTabla.addColumn("Alta");
-        
-        for(int i=0; i <a.size(); i++) {
+
+        for (int i = 0; i < a.size(); i++) {
             String fila[] = {"", "", ""};
-           
+
             fila[0] = a.get(i).getId().toString();
             fila[1] = a.get(i).getNombre();
-            fila[2] = (a.get(i).getAlta())?"Alta":"Baja";
-            
+            fila[2] = (a.get(i).getAlta()) ? "Alta" : "Baja";
+
             miTabla.addRow(fila);
         }
         JTable table = new JTable(miTabla);//creo un objeto tabla
@@ -227,13 +230,13 @@ public class EditorialService {
         table.getColumnModel().getColumn(0).setPreferredWidth(50);
         table.getColumnModel().getColumn(1).setPreferredWidth(100);
         table.getColumnModel().getColumn(2).setPreferredWidth(100);
-        table.setPreferredScrollableViewportSize(new Dimension(250,100));
-        table.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
+        table.setPreferredScrollableViewportSize(new Dimension(250, 100));
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.createVerticalScrollBar();
         scrollPane.createHorizontalScrollBar();
 
         return scrollPane;
     }
-    
+
 }
