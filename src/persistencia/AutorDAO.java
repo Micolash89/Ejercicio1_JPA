@@ -19,7 +19,7 @@ public class AutorDAO extends DAO<Autor> {
 
     }
 
-    public List<Autor> listarTodosAutores() throws Exception{
+    public List<Autor> listarTodosAutores() throws Exception {
 
         return listarTodos("SELECT a FROM Autor a");
 
@@ -34,22 +34,22 @@ public class AutorDAO extends DAO<Autor> {
 
     }
 
-    public List<Autor> BuscarAutor(String columna,String dato) throws Exception{
-    
-        return consultaGenerica("Autor", columna , dato);
-    
+    public List<Autor> BuscarAutor(String columna, String dato) throws Exception {
+
+        return consultaGenerica("Autor", columna, dato);
+
     }
-    
-    public boolean noHayAutor()throws Exception{
-    
-    return noHayRegistros("select a from Autor a");
-    
+
+    public boolean noHayAutor() throws Exception {
+
+        return noHayRegistros("select a from Autor a");
+
     }
-    
-    public void editarAutor(Autor a)throws Exception{
-        
+
+    public void editarAutor(Autor a) throws Exception {
+
         editar(a);
-    
+
     }
 
 }

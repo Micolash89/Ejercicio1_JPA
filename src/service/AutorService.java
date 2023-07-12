@@ -1,4 +1,3 @@
-
 package service;
 
 import entidades.Autor;
@@ -29,36 +28,35 @@ public class AutorService {
         }
 
         return a;
-        
+
     }
 
     public void mostrarAutores() {
 
-      //  InterfazGrafica.mensajeMostrar(listarAutores(), "LISTA DE AUTORES");
-      
+        //  InterfazGrafica.mensajeMostrar(listarAutores(), "LISTA DE AUTORES");
         try {
-            if(ad.noHayAutor()){
+            if (ad.noHayAutor()) {
                 InterfazGrafica.mensajeCancelar("No hay registros en el sistema", "ERROR AL MOSTRAR");
             }
-                
+
         } catch (Exception e) {
-            InterfazGrafica.mensajeCancelar("Error en la conexion base de la datos "+e.getMessage(), "ERROR - EXCEPTION");
+            InterfazGrafica.mensajeCancelar("Error en la conexion base de la datos " + e.getMessage(), "ERROR - EXCEPTION");
         }
-      
+
         try {
-        InterfazGrafica.mensajeMostrarTabla(ListadoEnTabla(ad.listarTodosAutores()), "LISTA DE AUTORES");
-            
+            InterfazGrafica.mensajeMostrarTabla(ListadoEnTabla(ad.listarTodosAutores()), "LISTA DE AUTORES");
+
         } catch (Exception e) {
-            InterfazGrafica.mensajeCancelar("Error en la conexion de la base de datos","LISTA DE AUTORES - TABLA");
+            InterfazGrafica.mensajeCancelar("Error en la conexion de la base de datos", "LISTA DE AUTORES - TABLA");
         }
-    
+
     }
 
     public void buscarAutor() {
-        
-        String input=null;
-        Integer id=-1;
-        
+
+        String input = null;
+        Integer id = -1;
+
         try {
 
             if (ad.noHayAutor()) {
@@ -71,52 +69,52 @@ public class AutorService {
         }
 
         //input=InterfazGrafica.mensajeIngreso(listarAutores() + "\ningrese ingrese ID del Autor", "AUTOR") ;
-        
         try {
-        input = InterfazGrafica.mensajeMostrarTablaIngreso(ListadoEnTabla(ad.listarTodosAutores()), "BUSCAR AUTOR");
-            
+            input = InterfazGrafica.mensajeMostrarTablaIngreso(ListadoEnTabla(ad.listarTodosAutores()), "BUSCAR AUTOR");
+
         } catch (Exception e) {
             InterfazGrafica.mensajeCancelar("Error al buscar todos los autores", "BUSCAR - AUTOR");
         }
-        
-        
-        if(input==null)
+
+        if (input == null) {
             return;
-        
-        
+        }
+
         try {
             id = Integer.valueOf(input);
-            
-        } catch ( NumberFormatException  e) {
+
+        } catch (NumberFormatException e) {
             InterfazGrafica.mensajeCancelar("ingrese numeros", "ERROR BUSCAR - FORMAT");
             buscarAutor();
             return;
-        }catch(Exception j){
+        } catch (Exception j) {
             InterfazGrafica.mensajeCancelar("ingrese numeros", "ERROR BUSCAR - EXCEPTION");
             buscarAutor();
             return;
         }
-        
-        
-        
-        
+
         Autor a = null;
         try {
 
             a = ad.buscarAutorXId(id);
 
         } catch (Exception e) {
-            InterfazGrafica.mensajeAdvertencia("error al vuscar el autor con el id: " + id, "error ID");
+            InterfazGrafica.mensajeAdvertencia("error al buscar el autor con el id: " + id, "error ID");
             return;
         }
-        
-        if(a!=null)
+
+        if (a != null) {
             InterfazGrafica.mensajeMostrar(a.toString(), "LISTA DE AUTORES");
-        else
+        } else {
             InterfazGrafica.mensajeMostrar("no se encontro el autor con el id: " + id, "ERROR AL BUSCAR AUTOR");
+        }
+
     }
 
     public void buscarAutorXnombre() {
+
+        String nombre = null;
+        List<Autor> a = null;
 
         try {
 
@@ -130,16 +128,23 @@ public class AutorService {
             return;
         }
 
-        String nombre = InterfazGrafica.mensajeIngreso(listarAutores() + "\ningrese ingrese nombre del Autor", "NOMBRE");
-        if(nombre==null)
+        //String nombre = InterfazGrafica.mensajeIngreso(listarAutores() + "\ningrese ingrese nombre del Autor", "NOMBRE");
+        try {
+            nombre = InterfazGrafica.mensajeMostrarTablaIngreso(ListadoEnTabla(ad.listarTodosAutores()), "BUSCAR X NOMBRE");
+
+        } catch (Exception e) {
+            InterfazGrafica.mensajeCancelar("Error en la conexion de la base de datos", "LISTA DE AUTORES - TABLA");
+        }
+
+        if (nombre == null) {
             return;
-        if(nombre.trim().equals("")){
+        }
+        if (nombre.trim().equals("")) {
             InterfazGrafica.mensajeCancelar("Ingrese algun caracter", "ERROR - INGRESO");
             buscarAutor();
             return;
         }
-            
-        List<Autor> a = null;
+
         try {
 
             a = ad.BuscarAutor("nombre", nombre);
@@ -149,16 +154,21 @@ public class AutorService {
             return;
         }
 
-        InterfazGrafica.mensajeMostrar(listarAutores(a), "LISTA DE AUTORES");
+          try {
+        InterfazGrafica.mensajeMostrarTabla(ListadoEnTabla(a), "LISTA DE AUTORES");
+            
+        } catch (Exception e) {
+            InterfazGrafica.mensajeCancelar("Error en la conexion de la base de datos","LISTA DE AUTORES - TABLA");
+        }
 
     }
-    
-        public void eliminarXid() {
-          
-            Autor a=null;
-            Integer id;
-            
-             try {
+
+    public void eliminarXid() {
+
+        Autor a = null;
+        Integer id;
+
+        try {
 
             if (ad.noHayAutor()) {
                 InterfazGrafica.mensajeCancelar("no hay Autores reguistrados en el sistema", "BUSCAR AUTOR");
@@ -170,18 +180,19 @@ public class AutorService {
         }
 
         id = Integer.valueOf(InterfazGrafica.mensajeIngreso(listarAutores() + "\ningrese ingrese ID del Autor a eliminar", "AUTOR"));
-            try {
-                
-        a= ad.buscarAutorXId(id);
-            } catch (Exception e) {
-               InterfazGrafica.mensajeCancelar("Error al buscar la lista de autores X id " + e.getMessage(), "Error buscar Autor - if");
-               return;
-            }
-        if(a!=null)
+        try {
+
+            a = ad.buscarAutorXId(id);
+        } catch (Exception e) {
+            InterfazGrafica.mensajeCancelar("Error al buscar la lista de autores X id " + e.getMessage(), "Error buscar Autor - if");
+            return;
+        }
+        if (a != null) {
             a.setAlta(false);
-        else
-            InterfazGrafica.mensajeMostrar("no se encontro el autor con el id: "+id, "ERROR ELIMINAR POR ID");
-        
+        } else {
+            InterfazGrafica.mensajeMostrar("no se encontro el autor con el id: " + id, "ERROR ELIMINAR POR ID");
+        }
+
         try {
 
             ad.editarAutor(a);
@@ -195,29 +206,29 @@ public class AutorService {
 
     /**
      * pasar la lista en una cadena para mostrar
-    
+     *
      * @return
      */
     private String listarAutores() {
         List<Autor> a = null;
         try {
-           
+
             a = ad.listarTodosAutores();
-            
+
         } catch (Exception e) {
-            InterfazGrafica.mensajeAdvertencia("error "+e.getMessage(), "error al mostrar autores");
+            InterfazGrafica.mensajeAdvertencia("error " + e.getMessage(), "error al mostrar autores");
             return "";
         }
         String c = "";
-       
+
         for (Autor autor : a) {
-            c += autor.getId()+ " " + autor.getNombre() + espacios(autor.getNombre().length(),50)+ ((autor.isAlta())?"alta":"baja") + "\n";
+            c += autor.getId() + " " + autor.getNombre() + espacios(autor.getNombre().length(), 50) + ((autor.isAlta()) ? "alta" : "baja") + "\n";
         }
         return c;
 
     }
 
-    private String espacios(int n1,int n2) {
+    private String espacios(int n1, int n2) {
 
         String e = "";
 
@@ -225,24 +236,23 @@ public class AutorService {
             e += " ";
         }
 
-        
         return e;
     }
-    
+
     private String listarAutores(List<Autor> a) {
 
         String c = "";
         int i = 0;
         for (Autor autor : a) {
-            c += autor.getId()+ " " + autor.getNombre() + espacios(autor.getNombre().length(),50)+ ((autor.isAlta())?"alta":"baja") + "\n";
+            c += autor.getId() + " " + autor.getNombre() + espacios(autor.getNombre().length(), 50) + ((autor.isAlta()) ? "alta" : "baja") + "\n";
         }
         return c;
 
     }
 
     public void editarAutor() {
-        
-         try {
+
+        try {
 
             if (ad.noHayAutor()) {
                 InterfazGrafica.mensajeCancelar("no hay Autores reguistrados en el sistema", "EDITAR AUTOR");
@@ -253,7 +263,7 @@ public class AutorService {
             InterfazGrafica.mensajeCancelar("Error al buscar la lista de autores X id " + e.getMessage(), "Error editar Autor - if");
         }
 
-        Integer id = Integer.valueOf(InterfazGrafica.mensajeIngreso(listarAutores() + "\ningrese ingrese ID del Autor", "AUTOR")) ;
+        Integer id = Integer.valueOf(InterfazGrafica.mensajeIngreso(listarAutores() + "\ningrese ingrese ID del Autor", "AUTOR"));
         Autor a = null;
         try {
 
@@ -263,41 +273,41 @@ public class AutorService {
             InterfazGrafica.mensajeAdvertencia("error al buscar el autor con el id: " + id, "error ID");
             return;
         }
-        
-        if(a!=null){    
-            
-            a.setNombre( InterfazGrafica.mensajeIngresoEditar("Ingrese nuevo nombre","EDITAR AUTOR",a.getNombre()));
-            
-            if(!a.getAlta())
+
+        if (a != null) {
+
+            a.setNombre(InterfazGrafica.mensajeIngresoEditar("Ingrese nuevo nombre", "EDITAR AUTOR", a.getNombre()));
+
+            if (!a.getAlta()) {
                 a.setAlta(true);
-            
+            }
+
             try {
                 ad.editarAutor(a);
             } catch (Exception e) {
                 InterfazGrafica.mensajeCancelar("error al tratar de editar un autor" + e.getMessage(), "ERROR AL EDITAR");
             }
-            
-        }
-        else
+
+        } else {
             InterfazGrafica.mensajeMostrar("no se encontro el autor con el id: " + id, "ERROR AL BUSCAR AUTOR");
+        }
 
     }
 
-    
-     private JScrollPane ListadoEnTabla(List<Autor> a) {
-        
+    private JScrollPane ListadoEnTabla(List<Autor> a) {
+
         DefaultTableModel miTabla = new DefaultTableModel();
         miTabla.addColumn("Id");
         miTabla.addColumn("Nombre");
         miTabla.addColumn("Alta");
-        
-        for(int i=0; i <a.size(); i++) {
+
+        for (int i = 0; i < a.size(); i++) {
             String fila[] = {"", "", ""};
-           
+
             fila[0] = a.get(i).getId().toString();
             fila[1] = a.get(i).getNombre();
-            fila[2] = (a.get(i).getAlta())?"Alta":"Baja";
-           
+            fila[2] = (a.get(i).getAlta()) ? "Alta" : "Baja";
+
             miTabla.addRow(fila);
         }
         JTable table = new JTable(miTabla);//creo un objeto tabla
@@ -307,14 +317,13 @@ public class AutorService {
         table.getColumnModel().getColumn(0).setPreferredWidth(50);
         table.getColumnModel().getColumn(1).setPreferredWidth(100);
         table.getColumnModel().getColumn(2).setPreferredWidth(100);
-        table.setPreferredScrollableViewportSize(new Dimension(250,100));
-        table.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
+        table.setPreferredScrollableViewportSize(new Dimension(250, 100));
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.createVerticalScrollBar();
         scrollPane.createHorizontalScrollBar();
 
         return scrollPane;
     }
-    
-    
+
 }

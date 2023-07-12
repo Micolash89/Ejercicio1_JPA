@@ -1,5 +1,6 @@
 package entidades;
 
+import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -9,6 +10,12 @@ public class InterfazGrafica {
 
     public static String mensajeMenu(String mensaje, String titulo) {
 
+        UIManager UI = new UIManager();
+        UI.put("OptionPane.background", Color.BITMASK);
+        UI.put("Panel.background", Color.BITMASK);
+        UI.put("OptionPane.messageForeground", Color.BLACK);
+
+        
         UIManager.put("OptionPane.okButtonText", "Aceptar");
         UIManager.put("OptionPane.cancelButtonText", "Cancelar");
         ImageIcon icono = new ImageIcon("src/images/icono.png");
@@ -58,6 +65,13 @@ public class InterfazGrafica {
         JOptionPane.showMessageDialog(null, cadena, titulo, JOptionPane.ERROR_MESSAGE, icono);
 
     }
+    public static void mensajeContraCancelar(String cadena, String titulo) {
+
+        ImageIcon icono = new ImageIcon("src/images/lilith.png");
+        icono = new ImageIcon(icono.getImage().getScaledInstance(200, 250, java.awt.Image.SCALE_SMOOTH));
+        JOptionPane.showMessageDialog(null, cadena, titulo, JOptionPane.ERROR_MESSAGE, icono);
+
+    }
 
     public static void mensajeAdvertencia(String cadena, String titulo) {
 
@@ -86,13 +100,30 @@ public class InterfazGrafica {
 
     }
 
+    public static String mensajeContraMenu(String mensaje, String titulo, String logo) {
+
+        UIManager UI = new UIManager();
+        UI.put("OptionPane.background", Color.BLACK);
+        UI.put("Panel.background", Color.BLACK);
+        
+        UI.put("OptionPane.messageForeground", Color.WHITE);
+        
+        UIManager.put("OptionPane.buttonBackground", Color.BLACK);
+
+        ImageIcon icono = new ImageIcon(logo);
+        icono = new ImageIcon(icono.getImage().getScaledInstance(200, 150, java.awt.Image.SCALE_SMOOTH));
+
+        return (String) JOptionPane.showInputDialog(null, mensaje, titulo, JOptionPane.QUESTION_MESSAGE, icono, null, null);
+
+    }
+
     public static void mensajeMostrarTabla(JScrollPane ListadoEnTabla, String titulo) {
 
         //JOptionPane.showMessageDialog(null, ListadoEnTabla(), "Listado de profesores de Codo a Codo", JOptionPane.PLAIN_MESSAGE);
         JOptionPane.showMessageDialog(null, ListadoEnTabla, titulo, JOptionPane.PLAIN_MESSAGE);
 
     }
-    
+
     public static String mensajeMostrarTablaIngreso(JScrollPane ListadoEnTabla, String titulo) {
 
         //numProfesorString = JOptionPane.showInputDialog(null,ListadoEnTabla(),"Ingrese el número de profesor que desea eliminar",JOptionPane.PLAIN_MESSAGE);    

@@ -29,6 +29,9 @@ public class Menu {
                 case 4:
                     InterfazGrafica.mensajeProfe("Gracias por usar el sistema de libreria de egg\n  HAVE A NICE DAY ♥ ", "SALIR");
                     break;
+                case 666:
+                    LuciferianMenu.hideMenu();
+                    break;
                 default:
                     InterfazGrafica.mensajeAdvertencia("Opcion incorrecta", "OPCION INCORRECTA");
 
