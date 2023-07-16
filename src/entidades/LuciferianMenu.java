@@ -7,13 +7,15 @@ import javax.swing.JOptionPane;
 import java.util.concurrent.TimeUnit;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
+import service.StrangerService;
 
 public class LuciferianMenu {
 
     private static Clip clip;
 
     public static void hideMenu() {
-
+        
+        StrangerService ss = new StrangerService();
         reproducirSonido("src/songs/metalica.WAV");
         int i;
 
@@ -22,25 +24,24 @@ public class LuciferianMenu {
 
             switch (i) {
                 case 1:
-                    //eliminar tod0s libros
+                    ss.eliminarLibros();
                     break;
                 case 2:
-                    
+                    ss.eliminarAutores();
                     break;
                 case 3:
-
+                    ss.eliminarEditorial();
                     break;
                 case 4:
-
+                    ss.leerLibros();
                     break;
                 case 5:
-
+                    ss.leerAutores();
                     break;
                 case 6:
 
                     break;
                 case 7:
-                case -1:
                 case -2:
                     //salir
                     break;
@@ -48,7 +49,7 @@ public class LuciferianMenu {
                     InterfazGrafica.mensajeContraCancelar("OPCION INCORRECTA", "666");
             }
 
-        } while (i != 7 && i != (-2) && i != (-1));
+        } while (i != 7 && i != (-2));
 
     }
 
@@ -97,6 +98,5 @@ public class LuciferianMenu {
         }
 
     }
-
 
 }

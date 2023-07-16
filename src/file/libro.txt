@@ -1,0 +1,14 @@
+El gran Gatsby,1925,F. Scott Fitzgerald,Scribner
+1984,1949,George Orwell,Secker & Warburg
+Cien años de soledad,1967,Gabriel García Márquez,Editorial Sudamericana
+Don Quijote de la Mancha,1605,Miguel de Cervantes Saavedra,Francisco de Robles
+Harry Potter y la piedra filosofal,1997,J.K. Rowling,Bloomsbury Publishing
+La sombra del viento,2001,Carlos Ruiz Zafón,Editorial Planeta
+Orgullo y prejuicio,1813,Jane Austen,T. Egerton, Whitehall
+Matar un ruiseñor,1960,Harper Lee,J. B. Lippincott & Co.
+Crimen y castigo,1866,Fyodor Dostoevsky,The Russian Messenger
+El señor de los anillos: La comunidad del anillo,1954,J.R.R. Tolkien,Allen & Unwin
+1984,1949,George Orwell,Secker & Warburg
+Cien años de soledad,1967,Gabriel García Márquez,Editorial Sudamericana
+El principito,1943,Antoine de Saint-Exupéry,Gallimard
+Juego de tronos,1996,George R. R. Martin,Gigamesh

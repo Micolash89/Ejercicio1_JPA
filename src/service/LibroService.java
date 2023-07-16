@@ -7,7 +7,11 @@ package service;
 import entidades.Editorial;
 import entidades.Libro;
 import entidades.InterfazGrafica;
+import java.awt.Dimension;
 import java.util.List;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import persistencia.LibroDAO;
 
 /**
@@ -109,7 +113,24 @@ public class LibroService {
 
     public void mostrarLibros() {
 
-        InterfazGrafica.mensajeMostrar(listarLibros(), "LISTA DE LibroES");
+        //InterfazGrafica.mensajeMostrar(listarLibros(), "LISTA DE LibroES");
+        
+         try {
+            if (ld.noHayLibros()) {
+                InterfazGrafica.mensajeCancelar("No hay registros en el sistema", "ERROR AL MOSTRAR");
+                return;
+            }
+
+        } catch (Exception e) {
+            InterfazGrafica.mensajeCancelar("Error en la conexion base de la datos " + e.getMessage(), "ERROR - EXCEPTION");
+        }
+
+        try {
+            InterfazGrafica.mensajeMostrarTabla(ListadoEnTabla(ld.listarTodosLibros()), "LISTA DE LIBROS");
+
+        } catch (Exception e) {
+            InterfazGrafica.mensajeCancelar("Error en la conexion de la base de datos " , "LISTA DE LIBROS - TABLA");
+        }
 
     }
 
@@ -196,7 +217,7 @@ public class LibroService {
             return;
         }
 
-        InterfazGrafica.mensajeMostrar(listarLibros(a), "LISTA DE LibroES");
+        InterfazGrafica.mensajeMostrar(listarLibros(a), "LISTA DE Libros");
 
     }
 
@@ -415,6 +436,70 @@ public class LibroService {
     }
     
     
+    private JScrollPane ListadoEnTabla(List<Libro> a) {
+
+        DefaultTableModel miTabla = new DefaultTableModel();
+        miTabla.addColumn("Id");
+        miTabla.addColumn("Titulo");
+        miTabla.addColumn("Anio");
+        miTabla.addColumn("Ejemplares");
+        miTabla.addColumn("Alta");
+        miTabla.addColumn("Autor");
+        miTabla.addColumn("Editorial");
+
+        for (int i = 0; i < a.size(); i++) {
+            String fila[] = {"", "", "","","","",""};
+//public Libro(String titulo, Integer anio, Integer ejemplares, Integer prestados, Integer restantes, Boolean alta, Autor autor, Editorial editorial) {
+            fila[0] = a.get(i).getId().toString();
+            fila[1] = a.get(i).getTitulo();
+            fila[2] = a.get(i).getAnio().toString();
+            fila[3] = a.get(i).getEjemplares().toString();
+            fila[4] = (a.get(i).getAlta()) ? "Alta" : "Baja";
+            fila[5] = a.get(i).getAutor().getNombre();
+            fila[6] = a.get(i).getEditorial().getNombre();
+
+            miTabla.addRow(fila);
+        }
+        JTable table = new JTable(miTabla);//creo un objeto tabla
+
+        table.setDefaultEditor(Object.class, null);
+        table.getTableHeader().setReorderingAllowed(false);
+        table.getColumnModel().getColumn(0).setPreferredWidth(50);
+        table.getColumnModel().getColumn(1).setPreferredWidth(200);
+        table.getColumnModel().getColumn(2).setPreferredWidth(80);
+        table.getColumnModel().getColumn(3).setPreferredWidth(50);
+        table.getColumnModel().getColumn(4).setPreferredWidth(80);
+        table.getColumnModel().getColumn(5).setPreferredWidth(200);
+        table.getColumnModel().getColumn(6).setPreferredWidth(100);
+        table.setPreferredScrollableViewportSize(new Dimension(760, 250));
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.createVerticalScrollBar();
+        scrollPane.createHorizontalScrollBar();
+
+        return scrollPane;
+    }
+    
+    
+    //////////////////stranger//////////////////////
+    
+       public void eliminarTodosLibro() throws Exception {
+        ld.eliminarTodos("Libro");
+    }
+
+    
+   public void guardarLibro(Libro aux) {
+        
+        try {
+            
+            
+            ld.guardarLibro(aux);
+
+        } catch (Exception e) {
+            InterfazGrafica.mensajeCancelar("error al ingresar un Libro " + e.getMessage(), "ERROR - Libro");
+        }
+        
+    }
     
     
     

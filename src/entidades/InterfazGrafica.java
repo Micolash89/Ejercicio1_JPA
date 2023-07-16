@@ -15,7 +15,6 @@ public class InterfazGrafica {
         UI.put("Panel.background", Color.BITMASK);
         UI.put("OptionPane.messageForeground", Color.BLACK);
 
-        
         UIManager.put("OptionPane.okButtonText", "Aceptar");
         UIManager.put("OptionPane.cancelButtonText", "Cancelar");
         ImageIcon icono = new ImageIcon("src/images/icono.png");
@@ -83,7 +82,7 @@ public class InterfazGrafica {
 
     public static void mensajeProfe(String cadena, String titulo) {
 
-        String fotos[] = {"src/images/bruno.png", "src/images/camila.png", "src/images/coti.png", "src/images/aron.png", "src/images/yo.png", "src/images/seba.png", "src/images/diego.png", "src/images/diegoDark.png", "src/images/sebastian.png", "src/images/sabri.png", "src/images/pablo.png", "src/images/agus.png"};
+        String fotos[] = {"src/images/bruno.png", "src/images/camila.png", "src/images/coti.png", "src/images/aron.png", "src/images/yo.png", "src/images/seba.png", "src/images/diego.png", "src/images/diegoDark.png", "src/images/sebastian.png", "src/images/sabri.png", "src/images/pablo.png", "src/images/agus.png","src/images/maxi.png","src/images/javier.png","src/images/leonel.png"};
 
         ImageIcon icono = new ImageIcon(fotos[(int) (Math.random() * fotos.length)]);
         icono = new ImageIcon(icono.getImage().getScaledInstance(150, 170, java.awt.Image.SCALE_SMOOTH));

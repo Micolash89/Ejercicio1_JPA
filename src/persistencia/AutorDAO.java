@@ -9,8 +9,13 @@ public class AutorDAO extends DAO<Autor> {
 
     public void guardarAutor(Autor a) throws Exception {
 
-        guardar(a);
+        try {
+            System.out.println(consultaGenericaLiteralNombre("Autor", "nombre", a.getNombre()).getAlta());
+        } catch (Exception e) {
 
+            guardar(a);
+        }
+        
     }
 
     public void eliminarLibro(Integer id) throws Exception {

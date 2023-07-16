@@ -37,6 +37,7 @@ public class AutorService {
         try {
             if (ad.noHayAutor()) {
                 InterfazGrafica.mensajeCancelar("No hay registros en el sistema", "ERROR AL MOSTRAR");
+                return;
             }
 
         } catch (Exception e) {
@@ -141,7 +142,7 @@ public class AutorService {
         }
         if (nombre.trim().equals("")) {
             InterfazGrafica.mensajeCancelar("Ingrese algun caracter", "ERROR - INGRESO");
-            buscarAutor();
+            buscarAutorXnombre();
             return;
         }
 
@@ -150,15 +151,19 @@ public class AutorService {
             a = ad.BuscarAutor("nombre", nombre);
 
         } catch (Exception e) {
-            InterfazGrafica.mensajeAdvertencia("error al buscar el autor con el nombre: " + nombre, "error nombre");
+            InterfazGrafica.mensajeAdvertencia("error al buscar el autor con el nombre: " + nombre, "ERROR NOMBRE");
             return;
         }
 
-          try {
-        InterfazGrafica.mensajeMostrarTabla(ListadoEnTabla(a), "LISTA DE AUTORES");
-            
+        try {
+            if (!a.isEmpty()) {
+                InterfazGrafica.mensajeMostrarTabla(ListadoEnTabla(a), "LISTA DE AUTORES");
+            } else {
+                InterfazGrafica.mensajeCancelar("No se encontro el autor: " + nombre, "ERROR - BUSCAR X NOMBRE");
+            }
+
         } catch (Exception e) {
-            InterfazGrafica.mensajeCancelar("Error en la conexion de la base de datos","LISTA DE AUTORES - TABLA");
+            InterfazGrafica.mensajeCancelar("Error en la conexion de la base de datos", "LISTA DE AUTORES - TABLA");
         }
 
     }
@@ -167,6 +172,7 @@ public class AutorService {
 
         Autor a = null;
         Integer id;
+        String input = null;
 
         try {
 
@@ -179,7 +185,31 @@ public class AutorService {
             InterfazGrafica.mensajeCancelar("Error al buscar la lista de autores X id " + e.getMessage(), "Error buscar Autor - if");
         }
 
-        id = Integer.valueOf(InterfazGrafica.mensajeIngreso(listarAutores() + "\ningrese ingrese ID del Autor a eliminar", "AUTOR"));
+        //id = Integer.valueOf(InterfazGrafica.mensajeIngreso(listarAutores() + "\ningrese ingrese ID del Autor a eliminar", "AUTOR"));
+        try {
+            input = InterfazGrafica.mensajeMostrarTablaIngreso(ListadoEnTabla(ad.listarTodosAutores()), "ELIMINAR AUTOR");
+
+        } catch (Exception e) {
+            InterfazGrafica.mensajeCancelar("Error al buscar todos los autores", "BUSCAR - AUTOR");
+        }
+
+        if (input == null) {
+            return;
+        }
+
+        try {
+            id = Integer.valueOf(input);
+
+        } catch (NumberFormatException e) {
+            InterfazGrafica.mensajeCancelar("ingrese numeros", "ERROR BUSCAR - FORMAT");
+            eliminarXid();
+            return;
+        } catch (Exception j) {
+            InterfazGrafica.mensajeCancelar("ingrese numeros", "ERROR BUSCAR - EXCEPTION");
+            eliminarXid();
+            return;
+        }
+
         try {
 
             a = ad.buscarAutorXId(id);
@@ -252,6 +282,10 @@ public class AutorService {
 
     public void editarAutor() {
 
+        Integer id = null;
+        String input = null;
+        Autor a = null;
+
         try {
 
             if (ad.noHayAutor()) {
@@ -263,8 +297,31 @@ public class AutorService {
             InterfazGrafica.mensajeCancelar("Error al buscar la lista de autores X id " + e.getMessage(), "Error editar Autor - if");
         }
 
-        Integer id = Integer.valueOf(InterfazGrafica.mensajeIngreso(listarAutores() + "\ningrese ingrese ID del Autor", "AUTOR"));
-        Autor a = null;
+        //  Integer id = Integer.valueOf(InterfazGrafica.mensajeIngreso(listarAutores() + "\ningrese ingrese ID del Autor", "AUTOR"));
+        try {
+            input = InterfazGrafica.mensajeMostrarTablaIngreso(ListadoEnTabla(ad.listarTodosAutores()), "ELIMINAR AUTOR");
+
+        } catch (Exception e) {
+            InterfazGrafica.mensajeCancelar("Error al buscar todos los autores", "BUSCAR - AUTOR");
+        }
+
+        if (input == null) {
+            return;
+        }
+
+        try {
+            id = Integer.valueOf(input);
+
+        } catch (NumberFormatException e) {
+            InterfazGrafica.mensajeCancelar("ingrese numeros", "ERROR BUSCAR - FORMAT");
+            editarAutor();
+            return;
+        } catch (Exception j) {
+            InterfazGrafica.mensajeCancelar("ingrese numeros", "ERROR BUSCAR - EXCEPTION");
+            editarAutor();
+            return;
+        }
+
         try {
 
             a = ad.buscarAutorXId(id);
@@ -326,4 +383,20 @@ public class AutorService {
         return scrollPane;
     }
 
+    ///////////////////////////////////////////////
+    //////////////////Stranger dao/////////////////
+    
+       public void eliminarTodosAutor() throws Exception {
+        ad.eliminarTodos("Autor");
+    }
+    
+    public void guardarAutor(Autor a){
+        
+        try {
+            ad.guardarAutor(a);
+        } catch (Exception e) {
+            InterfazGrafica.mensajeCancelar("error al guardar en la base de datos", "ERROR - AUTOR - SERVICE");
+        }
+    
+    }
 }

@@ -45,6 +45,7 @@ public class EditorialService {
         try {
             if (ed.noHayEditorial()) {
                 InterfazGrafica.mensajeCancelar("No hay registros en el sistema", "ERROR AL MOSTRAR");
+                return;
             }
 
         } catch (Exception e) {
@@ -55,7 +56,7 @@ public class EditorialService {
             InterfazGrafica.mensajeMostrarTabla(ListadoEnTabla(ed.listarTodosEditoriales()), "LISTA DE AUTORES");
 
         } catch (Exception e) {
-            InterfazGrafica.mensajeCancelar("Error en la conexion de la base de datos", "LISTA DE AUTORES - TABLA");
+            InterfazGrafica.mensajeCancelar("Error en la conexion de la base de datos " +e.getMessage(), "LISTA DE AUTORES - TABLA");
         }
 
     }
@@ -237,6 +238,20 @@ public class EditorialService {
         scrollPane.createHorizontalScrollBar();
 
         return scrollPane;
+    }
+///////////////////////////////stranger/////////////////////////
+    
+      public void eliminarTodosEditorial() throws Exception {
+        ed.eliminarTodos("Editorial");
+    }
+    public void guardarEditorial(Editorial a){
+        
+        try {
+            ed.guardarEditorial(a);
+        } catch (Exception e) {
+            InterfazGrafica.mensajeCancelar("error al guardar en la base de datos", "ERROR - AUTOR - SERVICE");
+        }
+    
     }
 
 }

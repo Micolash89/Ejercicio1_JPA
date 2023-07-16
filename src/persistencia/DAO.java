@@ -5,7 +5,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-public class DAO<T> {
+public abstract class DAO<T> {
 
     protected final EntityManagerFactory EMF = Persistence.createEntityManagerFactory("ejercicio1JPAPU");
     protected EntityManager em = EMF.createEntityManager();
@@ -54,33 +54,56 @@ public class DAO<T> {
     }
 
     protected List<T> listarTodos(String sql) {
-        
+
         conectar();
-        
-        List<T> obj= em.createQuery(sql).getResultList(); 
+
+        List<T> obj = em.createQuery(sql).getResultList();
         desconectar();
+       
         return obj;
 
     }
 
     public List<T> consultaGenerica(String entidad, String atributo, String variable) {
-        
+
         conectar();
         return em.createQuery("SELECT e FROM " + entidad + " e WHERE e." + atributo + " LIKE :variable").setParameter("variable", "%" + variable + "%").getResultList();
         //return em.createQuery("SELECT e FROM Libro e WHERE e.autor.nombre LIKE :variable").setParameter("variable", "%" + variable + "%").getResultList();
         //SELECT e FROM Libro  e where e.autor.nombre LIKE : variable
     }
+
     public List<T> consultaGenericaLiteral(String entidad, String atributo, String variable) {
-        
+
         conectar();
-        return em.createQuery("SELECT e FROM " + entidad + " e WHERE e." + atributo + " LIKE : " + variable).getResultList();
-        //return em.createQuery("SELECT e FROM Libro e WHERE e.autor.nombre LIKE :variable").setParameter("variable", "%" + variable + "%").getResultList();
+        //return em.createQuery("SELECT e FROM " + entidad + " e WHERE e." + atributo + " LIKE : " + variable).getResultList();
+        return em.createQuery("SELECT e FROM Libro e WHERE e.autor.nombre LIKE :variable").setParameter("variable", "%" + variable + "%").getResultList();
+        //return em.createQuery("SELECT e FROM Libro e WHERE e.autor.nombre LIKE : " + variable).getResultList();
         //SELECT e FROM Libro  e where e.autor.nombre LIKE : variable
     }
 
-    public boolean noHayRegistros(String sql){
+    public T consultaGenericaLiteralNombre(String entidad, String atributo, String variable) {
+
+        conectar();
+        //return em.createQuery("SELECT e FROM " + entidad + " e WHERE e." + atributo + " LIKE : " + variable).getResultList();
+        //return (T) em.createQuery("SELECT e FROM Libro e WHERE e.autor.nombre LIKE : variable ").setParameter("variable", variable ).getSingleResult();
+        return (T) em.createQuery("SELECT e FROM Libro e WHERE e.autor.nombre LIKE : " + variable ).getSingleResult();
+        //return em.createQuery("SELECT e FROM Libro e WHERE e.autor.nombre LIKE : " + variable).getResultList();
+        //SELECT e FROM Libro  e where e.autor.nombre LIKE : variable
+    }
+
+    public boolean noHayRegistros(String sql) {
         conectar();
         return listarTodos(sql).isEmpty();
     }
-    
+
+    public void eliminarTodos(String entidad) {
+
+        conectar();
+        em.getTransaction().begin();
+        em.createQuery("DELETE FROM " + entidad).executeUpdate();
+        em.getTransaction().commit();
+        desconectar();
+        // 
+    }
+
 }
