@@ -37,7 +37,6 @@ public class ArchivoGestor {
     }
 
     public List<Libro> leerLibro() {
-        int i=0;
         List<Libro> listaLibros = new ArrayList<>();
         try (BufferedReader leer = new BufferedReader(new FileReader(FILE_PATH_L))) {
             String linea;
@@ -47,16 +46,27 @@ public class ArchivoGestor {
                 Libro l = new Libro(registroLibro[0], Integer.valueOf(registroLibro[1]), (int) (Math.random() * 5 + 1), (int) (Math.random() * 5 + 1), (int) (Math.random() * 5 + 1), true, new Autor(registroLibro[2], true), new Editorial(registroLibro[3], true));
                 
                 listaLibros.add(new Libro(registroLibro[0], Integer.valueOf(registroLibro[1]), (int) (Math.random() * 5 + 1), (int) (Math.random() * 5 + 1), (int) (Math.random() * 5 + 1), true, new Autor(registroLibro[2], true), new Editorial(registroLibro[3], true)));
-                System.out.println(++i);
-                
+               
             }
              
         } catch (IOException e) {
             System.out.println("No se pudo leer el archivo" + e.getMessage());
         }
        
-        
         return listaLibros;
+    }
+
+    public List<Editorial> leerEditorial() {
+         List<Editorial> listaEditoriales = new ArrayList<>();
+        try (BufferedReader leer = new BufferedReader(new FileReader(FILE_PATH_E))) {
+            String linea;
+            while ((linea = leer.readLine()) != null) {
+                listaEditoriales.add(new Editorial(linea, true));
+            }
+        } catch (IOException e) {
+            System.out.println("No se pudo leer el archivo" + e.getMessage());
+        }
+        return listaEditoriales; 
     }
 
 }

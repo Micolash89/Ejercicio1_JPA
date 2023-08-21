@@ -6,100 +6,115 @@ package service;
 
 import entidades.ArchivoGestor;
 import entidades.Autor;
+import entidades.Editorial;
 import entidades.InterfazGrafica;
 import entidades.Libro;
 import java.util.List;
-
 
 /**
  *
  * @author JAVIER ESPINDOLA
  */
 public class StrangerService {
- 
+
     AutorService as = new AutorService();
     EditorialService es = new EditorialService();
     LibroService ls = new LibroService();
-    
+
     ArchivoGestor archivo = new ArchivoGestor();
-    public void eliminarAutores(){
-        
-        
+
+    public void eliminarAutores() {
+
         try {
-            
-        ls.eliminarTodosLibro();
-        as.eliminarTodosAutor();
-        
+
+            ls.eliminarTodosLibro();
+            as.eliminarTodosAutor();
+
         } catch (Exception e) {
-            InterfazGrafica.mensajeCancelar("error al eliminar Autor/libros " +e.getMessage(), "ERROR  - ELIMINAR AUTORES");
+            InterfazGrafica.mensajeCancelar("error al eliminar Autor/libros " + e.getMessage(), "ERROR  - ELIMINAR AUTORES");
         }
-        
+
     }
-    public void eliminarEditorial(){
-        
-        
+
+    public void eliminarEditorial() {
+
         try {
-            
-        ls.eliminarTodosLibro();
-        es.eliminarTodosEditorial();
-        
+
+            ls.eliminarTodosLibro();
+            es.eliminarTodosEditorial();
+
         } catch (Exception e) {
-            InterfazGrafica.mensajeCancelar("error al eliminar Autor/libros " +e.getMessage(), "ERROR  - ELIMINAR AUTORES");
+            InterfazGrafica.mensajeCancelar("error al eliminar Autor/libros " + e.getMessage(), "ERROR  - ELIMINAR AUTORES");
         }
-        
+
     }
-    public void eliminarLibros(){
-        
-        
+
+    public void eliminarLibros() {
+
         try {
-            
-        ls.eliminarTodosLibro();
-        
-        
+
+            ls.eliminarTodosLibro();
+
         } catch (Exception e) {
-            InterfazGrafica.mensajeCancelar("error al eliminar Autor/libros " +e.getMessage(), "ERROR  - ELIMINAR AUTORES");
+            InterfazGrafica.mensajeCancelar("error al eliminar Autor/libros " + e.getMessage(), "ERROR  - ELIMINAR AUTORES");
         }
-        
+
     }
-    
-    
-    public void leerAutores(){
-    
+
+    public void leerAutores() {
+
         try {
-            
-            List <Autor> a = archivo.leerAutor();
-            
+
+            List<Autor> a = archivo.leerAutor();
+
             for (Autor aux : a) {
-                
+
                 as.guardarAutor(aux);
-                
+
             }
-            
+
         } catch (Exception e) {
+            System.out.println("no se pudo leer los autores " + e.getMessage());
         }
-    
+
     }
-    public void leerLibros(){
-    
+
+    public void leerEditoriales() {
+
         try {
-            
-            List <Libro> l = archivo.leerLibro();
-            
-          
-            
+
+            List<Editorial> a = archivo.leerEditorial();
+
+            for (Editorial aux : a) {
+
+                es.guardarEditorial(aux);
+
+            }
+
+        } catch (Exception e) {
+            System.out.println("no se pudo leer las editoriales " + e.getMessage());
+        }
+
+    }
+
+    public void leerLibros() {
+
+        try {
+
+            List<Libro> l = archivo.leerLibro();
+
             for (Libro aux : l) {
-              
+
                 as.guardarAutor(aux.getAutor());
                 es.guardarEditorial(aux.getEditorial());
                 ls.guardarLibro(aux);
-                
+
             }
-            
+
         } catch (Exception e) {
             System.out.println("error");
         }
-    
+
     }
-    
-    
+
 }

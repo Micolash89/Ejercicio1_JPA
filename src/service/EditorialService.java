@@ -56,12 +56,14 @@ public class EditorialService {
             InterfazGrafica.mensajeMostrarTabla(ListadoEnTabla(ed.listarTodosEditoriales()), "LISTA DE AUTORES");
 
         } catch (Exception e) {
-            InterfazGrafica.mensajeCancelar("Error en la conexion de la base de datos " +e.getMessage(), "LISTA DE AUTORES - TABLA");
+            InterfazGrafica.mensajeCancelar("Error en la conexion de la base de datos " + e.getMessage(), "LISTA DE AUTORES - TABLA");
         }
 
     }
 
     public void buscarEditorial() {
+        String input=null;
+        Integer id = -1;
         try {
 
             if (ed.noHayEditorial()) {
@@ -73,7 +75,33 @@ public class EditorialService {
             InterfazGrafica.mensajeCancelar("Error al buscar la lista de Editoriales X id " + e.getMessage(), "Error buscar Editorial - if");
         }
 
-        Integer id = Integer.valueOf(InterfazGrafica.mensajeIngreso(listarEditoriales() + "\ningrese ingrese ID del Editorial", "Editorial"));
+        //Integer id = Integer.valueOf(InterfazGrafica.mensajeIngreso(listarEditoriales() + "\ningrese ingrese ID del Editorial", "Editorial"));
+        
+         try {
+            input = InterfazGrafica.mensajeMostrarTablaIngreso(ListadoEnTabla(ed.listarTodosEditoriales()), "BUSCAR AUTOR");
+
+        } catch (Exception e) {
+            InterfazGrafica.mensajeCancelar("Error al buscar todas las editoriales", "BUSCAR - EDITORIAL");
+        }
+
+        if (input == null) {
+            return;
+        }
+
+        try {
+            id = Integer.valueOf(input);
+
+        } catch (NumberFormatException e) {
+            InterfazGrafica.mensajeCancelar("ingrese numeros", "ERROR BUSCAR - FORMAT");
+            buscarEditorial();
+            return;
+        } catch (Exception j) {
+            InterfazGrafica.mensajeCancelar("ingrese numeros", "ERROR BUSCAR - EXCEPTION");
+            buscarEditorial();
+            return;
+        }
+
+        
         Editorial a = null;
         try {
 
@@ -93,6 +121,9 @@ public class EditorialService {
 
     public void buscarEditorialXnombre() {
 
+        String nombre = null;
+        List<Editorial> a = null;
+        
         try {
 
             if (ed.noHayEditorial()) {
@@ -105,11 +136,28 @@ public class EditorialService {
             return;
         }
 
-        String nombre = InterfazGrafica.mensajeIngreso(listarEditoriales() + "\ningrese ingrese nombre del Editorial", "NOMBRE");
+      //  String nombre = InterfazGrafica.mensajeIngreso(listarEditoriales() + "\ningrese ingrese nombre del Editorial", "NOMBRE");
+      
+        
+         try {
+            nombre = InterfazGrafica.mensajeMostrarTablaIngreso(ListadoEnTabla(ed.listarTodosEditoriales()), "BUSCAR AUTOR");
+
+        } catch (Exception e) {
+            InterfazGrafica.mensajeCancelar("Error al buscar todas las editoriales", "BUSCAR - EDITORIAL");
+        }
+
+        
         if (nombre == null) {
             return;
         }
-        List<Editorial> a = null;
+      
+        
+          if (nombre.trim().equals("")) {
+            InterfazGrafica.mensajeCancelar("Ingrese algun caracter", "ERROR - INGRESO");
+            buscarEditorialXnombre();
+            return;
+        }
+        
         try {
 
             a = ed.BuscarEditorial("nombre", nombre);
@@ -119,14 +167,23 @@ public class EditorialService {
             return;
         }
 
-        InterfazGrafica.mensajeMostrar(listarEditoriales(a), "LISTA DE EditorialES");
+          try {
+            if (!a.isEmpty()) {
+                InterfazGrafica.mensajeMostrarTabla(ListadoEnTabla(a), "LISTA DE EDITORIALES");
+            } else {
+                InterfazGrafica.mensajeCancelar("No se encontro el autor: " + nombre, "ERROR - BUSCAR X NOMBRE");
+            }
 
+        } catch (Exception e) {
+            InterfazGrafica.mensajeCancelar("Error en la conexion de la base de datos", "LISTA DE AUTORES - TABLA");
+        }
     }
 
     public void eliminarXid() {
 
         Editorial a = null;
         Integer id;
+        String input = null;
 
         try {
 
@@ -139,8 +196,33 @@ public class EditorialService {
             InterfazGrafica.mensajeCancelar("Error al buscar la lista de Editoriales X id " + e.getMessage(), "Error buscar Editorial - if");
         }
 
-        id = Integer.valueOf(InterfazGrafica.mensajeIngreso(listarEditoriales() + "\ningrese ingrese ID del Editorial a eliminar", "Editorial"));
+       // id = Integer.valueOf(InterfazGrafica.mensajeIngreso(listarEditoriales() + "\ningrese ingrese ID del Editorial a eliminar", "Editorial"));
+       
+          try {
+            input = InterfazGrafica.mensajeMostrarTablaIngreso(ListadoEnTabla(ed.listarTodosEditoriales()), "ELIMINAR EDITORIAL");
+
+        } catch (Exception e) {
+            InterfazGrafica.mensajeCancelar("Error al buscar todos los autores", "BUSCAR - AUTOR");
+        }
+
+        if (input == null) {
+            return;
+        }
+
         try {
+            id = Integer.valueOf(input);
+
+        } catch (NumberFormatException e) {
+            InterfazGrafica.mensajeCancelar("ingrese numeros", "ERROR BUSCAR - FORMAT");
+            eliminarXid();
+            return;
+        } catch (Exception j) {
+            InterfazGrafica.mensajeCancelar("ingrese numeros", "ERROR BUSCAR - EXCEPTION");
+            eliminarXid();
+            return;
+        }
+
+       try {
 
             a = ed.buscarEditorialXId(id);
         } catch (Exception e) {
@@ -157,7 +239,8 @@ public class EditorialService {
             ed.editarEditorial(a);
 
         } catch (Exception e) {
-            InterfazGrafica.mensajeAdvertencia("error al buscar el Editorial con el id: " + id, "error ID");
+            InterfazGrafica.mensajeAdvertencia("error al editar el Editorial con el id: " + id, "error ID");
+            
             return;
         }
         InterfazGrafica.mensajeMostrar("se elimino el Editorial: " + a, "eliminar");
@@ -208,6 +291,79 @@ public class EditorialService {
 
     }
 
+    public void editarEditorial() {
+
+        Integer id = null;
+        String input = null;
+        Editorial a = null;
+
+        try {
+
+            if (ed.noHayEditorial()) {
+                InterfazGrafica.mensajeCancelar("no hay Autores reguistrados en el sistema", "EDITAR AUTOR");
+                return;
+            }
+
+        } catch (Exception e) {
+            InterfazGrafica.mensajeCancelar("Error al buscar la lista de autores X id " + e.getMessage(), "Error editar Autor - if");
+        }
+
+        //  Integer id = Integer.valueOf(InterfazGrafica.mensajeIngreso(listarAutores() + "\ningrese ingrese ID del Autor", "AUTOR"));
+        try {
+            input = InterfazGrafica.mensajeMostrarTablaIngreso(ListadoEnTabla(ed.listarTodosEditoriales()), "EDITAR EDITORIAL");
+
+        } catch (Exception e) {
+            InterfazGrafica.mensajeCancelar("Error al buscar todos los autores", "BUSCAR - EDITORIAL");
+        }
+
+        if (input == null) {
+            return;
+        }
+
+        try {
+            id = Integer.valueOf(input);
+
+        } catch (NumberFormatException e) {
+            InterfazGrafica.mensajeCancelar("ingrese numeros", "ERROR EDITAR - FORMAT");
+            editarEditorial();
+            return;
+        } catch (Exception j) {
+            InterfazGrafica.mensajeCancelar("ingrese numeros", "ERROR BUSCAR - EXCEPTION");
+            editarEditorial();
+            return;
+        }
+
+        try {
+
+            a = ed.buscarEditorialXId(id);
+
+        } catch (Exception e) {
+            InterfazGrafica.mensajeAdvertencia("error al buscar la editorial con el id: " + id, "error ID");
+            return;
+        }
+
+        if (a != null) {
+
+            a.setNombre(InterfazGrafica.mensajeIngresoEditar("Ingrese nuevo nombre", "EDITAR EDITORIAL", a.getNombre()));
+
+            if (!a.getAlta()) {
+                a.setAlta(true);
+            }
+
+            try {
+                ed.editarEditorial(a);
+            } catch (Exception e) {
+                InterfazGrafica.mensajeCancelar("error al tratar de editar una editorial" + e.getMessage(), "ERROR AL EDITAR");
+            }
+
+        } else {
+            InterfazGrafica.mensajeMostrar("no se encontro la editorial con el id: " + id, "ERROR AL BUSCAR EDITORIAL");
+        }
+
+    }
+    
+    
+    
     private JScrollPane ListadoEnTabla(List<Editorial> a) {
 
         DefaultTableModel miTabla = new DefaultTableModel();
@@ -231,7 +387,7 @@ public class EditorialService {
         table.getColumnModel().getColumn(0).setPreferredWidth(50);
         table.getColumnModel().getColumn(1).setPreferredWidth(100);
         table.getColumnModel().getColumn(2).setPreferredWidth(100);
-        table.setPreferredScrollableViewportSize(new Dimension(250, 100));
+        table.setPreferredScrollableViewportSize(new Dimension(250, 200));
         table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.createVerticalScrollBar();
@@ -240,18 +396,19 @@ public class EditorialService {
         return scrollPane;
     }
 ///////////////////////////////stranger/////////////////////////
-    
-      public void eliminarTodosEditorial() throws Exception {
+
+    public void eliminarTodosEditorial() throws Exception {
         ed.eliminarTodos("Editorial");
     }
-    public void guardarEditorial(Editorial a){
-        
+
+    public void guardarEditorial(Editorial a) {
+
         try {
             ed.guardarEditorial(a);
         } catch (Exception e) {
             InterfazGrafica.mensajeCancelar("error al guardar en la base de datos", "ERROR - AUTOR - SERVICE");
         }
-    
+
     }
 
 }

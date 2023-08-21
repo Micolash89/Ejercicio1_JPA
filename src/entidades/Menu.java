@@ -219,7 +219,7 @@ public class Menu {
                     es.eliminarXid();
                     break;
                 case 6:
-                    //editar
+                    es.editarEditorial();
                     break;
                 case -2:
                 case 7:

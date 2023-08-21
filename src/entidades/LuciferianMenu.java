@@ -39,7 +39,7 @@ public class LuciferianMenu {
                     ss.leerAutores();
                     break;
                 case 6:
-
+                    ss.leerEditoriales();
                     break;
                 case 7:
                 case -2:

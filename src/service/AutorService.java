@@ -228,7 +228,8 @@ public class AutorService {
             ad.editarAutor(a);
 
         } catch (Exception e) {
-            InterfazGrafica.mensajeAdvertencia("error al buscar el autor con el id: " + id, "error ID");
+            InterfazGrafica.mensajeAdvertencia("error al editar el autor con el id: " + id, "error ID");
+            
             return;
         }
         InterfazGrafica.mensajeMostrar("se elimino el autor: " + a, "eliminar");
@@ -374,7 +375,7 @@ public class AutorService {
         table.getColumnModel().getColumn(0).setPreferredWidth(50);
         table.getColumnModel().getColumn(1).setPreferredWidth(100);
         table.getColumnModel().getColumn(2).setPreferredWidth(100);
-        table.setPreferredScrollableViewportSize(new Dimension(250, 100));
+        table.setPreferredScrollableViewportSize(new Dimension(250, 200));
         table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.createVerticalScrollBar();
